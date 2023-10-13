@@ -5,16 +5,19 @@
   "main": "index.js",
   "scripts": {
     "start": "node ./src/server.js",
-    "lint": "eslint src --ext js,jsx --fix"
+    "dev": "nodemon ./src/server.js",
+    "lint": "eslint src --ext js --fix"
   },
   "keywords": [],
   "author": "André Silveira Silva",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "express-async-errors": "^3.1.1"
   },
   "devDependencies": {
-    "@rocketseat/eslint-config": "^2.1.0",
-    "eslint": "^8.51.0"
+    "@rocketseat/eslint-config": "^1.2.0",
+    "eslint": "^8.51.0",
+    "nodemon": "^3.0.1"
   }
 }
