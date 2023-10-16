@@ -1,5 +1,5 @@
 exports.up = (knex) =>
-  knex.schema.createTable('ingredients', (table) => {
+  knex.schema.createTable('tags', (table) => {
     table.increments('id')
     table.text('name').notNullable()
     table
@@ -10,4 +10,4 @@ exports.up = (knex) =>
     table.timestamp('created_at').default(knex.fn.now())
   })
 
-exports.down = (knex) => knex.schema.dropTable('ingredients')
+exports.down = (knex) => knex.schema.dropTable('tags')
