@@ -5,7 +5,7 @@ exports.up = (knex) =>
     table
       .integer('menu_id')
       .references('id')
-      .inTable('menu')
+      .inTable('menus')
       .onDelete('CASCADE')
     table.timestamp('created_at').default(knex.fn.now())
   })
