@@ -2,6 +2,7 @@ exports.up = (knex) =>
   knex.schema.createTable('favorites', (table) => {
     table.increments('id')
     table.text('name')
+    table.text('image')
     table
       .integer('user_id')
       .references('id')
