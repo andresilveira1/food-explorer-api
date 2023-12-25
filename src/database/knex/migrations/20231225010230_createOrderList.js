@@ -4,6 +4,8 @@ exports.up = (knex) =>
     table.text('name')
     table.integer('quantity')
     table.integer('price')
+    table.text('image')
+    table.integer('menu_id').references('id').inTable('menus')
     table
       .integer('user_id')
       .references('id')
