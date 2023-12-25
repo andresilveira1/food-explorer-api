@@ -1,7 +1,7 @@
 exports.up = (knex) =>
   knex.schema.createTable('order_history', (table) => {
     table.increments('id')
-    table.text('description')
+    table.text('name')
     table.text('status')
     table
       .integer('user_id')
