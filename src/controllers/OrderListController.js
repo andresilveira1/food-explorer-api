@@ -21,6 +21,7 @@ class OrderListController {
       .select([
         'menus.name',
         'menus.image',
+        'menus.price',
         'order_list.id',
         'order_list.menu_id',
       ])
@@ -34,7 +35,7 @@ class OrderListController {
   async delete(req, res) {
     const { id } = req.params
 
-    await knex('request').where({ id }).delete()
+    await knex('order_list').where({ id }).delete()
 
     return res.json()
   }
