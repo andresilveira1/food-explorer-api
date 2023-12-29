@@ -6,5 +6,7 @@ const orderListRoutes = Router()
 const orderListController = new OrderListController()
 
 orderListRoutes.post('/', ensureAuthenticated, orderListController.create)
+orderListRoutes.get('/:user_id', orderListController.index)
+orderListRoutes.delete('/:id', orderListController.delete)
 
 module.exports = orderListRoutes

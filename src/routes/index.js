@@ -14,6 +14,6 @@ routes.use('/users', usersRouter)
 routes.use('/menus', menusRouter)
 routes.use('/favorites', favoritesRouter)
 routes.use('/tags', tagsRouter)
-routes.use('/request', orderListRouter)
+routes.use('/payment', orderListRouter)
 
 module.exports = routes
