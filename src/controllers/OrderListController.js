@@ -23,6 +23,7 @@ class OrderListController {
         'menus.image',
         'menus.price',
         'order_list.id',
+        'order_list.quantity',
         'order_list.menu_id',
       ])
       .where('order_list.user_id', '=', user_id)
