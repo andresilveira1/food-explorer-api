@@ -5,13 +5,21 @@ class OrderListController {
     const { quantity, menu_id } = req.body
     const user_id = req.user.id
 
+    const order = await knex('order_list')
+      .where('menu_id', '=', menu_id)
+      .first()
+
+    if (order && order.menu_id) {
+      return
+    }
+
     await knex('order_list').insert({
       quantity,
       menu_id,
       user_id,
     })
 
-    return res.json()
+    return res.status(201).json()
   }
 
   async index(req, res) {
