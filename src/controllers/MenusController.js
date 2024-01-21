@@ -3,19 +3,18 @@ const AppError = require('../utils/AppError')
 
 class MenusController {
   async create(req, res) {
-    const { name, description, avatar, price, tags, category } = req.body
+    const { name, description, price, ingredient, category } = req.body
     const user_id = req.user.id
 
-    const [menu_id] = await knex('menu').insert({
+    const [menu_id] = await knex('menus').insert({
       name,
       description,
-      avatar,
       price,
       category,
       user_id,
     })
 
-    const tagsInsert = tags.map((name) => {
+    const tagsInsert = ingredient.map((name) => {
       return {
         menu_id,
         name,
@@ -24,29 +23,28 @@ class MenusController {
 
     await knex('tags').insert(tagsInsert)
 
-    return res.json()
+    return res.json({ menu_id })
   }
 
   async update(req, res) {
-    const { name, description, avatar, price, tags, category } = req.body
+    const { name, description, price, ingredient, category } = req.body
     const { menu_id } = req.params
     const user_id = req.user.id
 
-    if (!name || !description || !avatar || !price || !tags) {
+    if (!name || !description || !price || !ingredient) {
       throw new AppError('Você deve preencher todos os campos do formulário')
     }
 
-    await knex('menu').where('id', '=', menu_id).update({
+    await knex('menus').where('id', '=', menu_id).update({
       name,
       description,
-      avatar,
       price,
       category,
       user_id,
       updated_at: knex.fn.now(),
     })
 
-    const tagsInsert = tags.map((name) => {
+    const tagsInsert = ingredient.map((name) => {
       return {
         menu_id,
         name,
@@ -65,9 +63,9 @@ class MenusController {
     let menu
 
     if (!name) {
-      menu = await knex('menu')
+      menu = await knex('menus')
     } else {
-      menu = await knex('menu').whereLike('name', `%${name}%`).orderBy('name')
+      menu = await knex('menus').whereLike('name', `%${name}%`).orderBy('name')
     }
 
     return res.json(menu)
@@ -76,7 +74,7 @@ class MenusController {
   async show(req, res) {
     const { id } = req.params
 
-    const product = await knex('menu').where({ id }).first()
+    const product = await knex('menus').where({ id }).first()
 
     const productTags = await knex('tags')
       .where({ menu_id: id })
@@ -90,7 +88,7 @@ class MenusController {
   async delete(req, res) {
     const { menu_id } = req.params
 
-    await knex('menu').where({ id: menu_id }).delete()
+    await knex('menus').where({ id: menu_id }).delete()
 
     return res.json()
   }
