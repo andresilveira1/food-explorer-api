@@ -58,17 +58,31 @@ class MenusController {
   }
 
   async index(req, res) {
-    const { name } = req.query
+    const { name, tag } = req.query
 
     let menu
 
     if (!name) {
       menu = await knex('menus')
     } else {
-      menu = await knex('menus').whereLike('name', `%${name}%`).orderBy('name')
+      menu = await knex('tags')
+        .select(['menus.id', 'menus.name'])
+        .whereLike('menus.name', `%${name}%`)
+        .orWhereLike('tags.name', `%${tag}%`)
+        .innerJoin('menus', 'menus.id', 'tags.menu_id')
+        .groupBy('menus.id')
+        .orderBy('menus.name')
     }
 
-    return res.json(menu)
+    const menuTags = await knex('tags')
+    const menuWithTags = menu.map((item) => {
+      const dishTags = menuTags.filter((tag) => tag.menu_id === item.id)
+      const menuTag = dishTags.map((tag) => tag.name).join(', ')
+
+      return { ...item, tags: menuTag }
+    })
+
+    return res.json(menuWithTags)
   }
 
   async show(req, res) {
