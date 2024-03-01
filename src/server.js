@@ -18,6 +18,15 @@ app.use(
     credentials: true,
   }),
 )
+
+app.use((req, res, next) => {
+  res.setHeader(
+    'Access-Control-Allow-Origin',
+    'https://foodexplorer1000.netlify.app/',
+  )
+  next()
+})
+
 app.use(express.json())
 app.use(routes)
 app.use('/files', express.static(uploadConfig.UPLOADS_FOLDER))
