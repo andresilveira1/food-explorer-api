@@ -28,6 +28,16 @@ app.use((req, res, next) => {
   next()
 })
 
+app.options('/sessions', (req, res) => {
+  res.setHeader(
+    'Access-Control-Allow-Origin',
+    'https://foodexplorer1000.netlify.app',
+  )
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS')
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
+  res.status(200).send()
+})
+
 app.use(express.json())
 app.use(routes)
 app.use('/files', express.static(uploadConfig.UPLOADS_FOLDER))
