@@ -14,6 +14,7 @@ const app = express()
 app.use(cookieParser())
 app.use(
   cors({
+    origin: ['https://foodexplorer1000.netlify.app/'],
     credentials: true,
   }),
 )
