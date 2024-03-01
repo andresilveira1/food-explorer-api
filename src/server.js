@@ -12,31 +12,7 @@ const uploadConfig = require('./configs/upload')
 const app = express()
 
 app.use(cookieParser())
-app.use(
-  cors({
-    origin: ['https://foodexplorer1000.netlify.app/'],
-    credentials: true,
-  }),
-)
-
-app.use((req, res, next) => {
-  res.setHeader(
-    'Access-Control-Allow-Origin',
-    'https://foodexplorer1000.netlify.app',
-  )
-  res.setHeader('Access-Control-Allow-Credentials', 'true')
-  next()
-})
-
-app.options('/sessions', (req, res) => {
-  res.setHeader(
-    'Access-Control-Allow-Origin',
-    'https://foodexplorer1000.netlify.app',
-  )
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS')
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
-  res.status(200).send()
-})
+app.use(cors())
 
 app.use(express.json())
 app.use(routes)
